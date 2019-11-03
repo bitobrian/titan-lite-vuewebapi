@@ -23,7 +23,7 @@
     </v-app-bar>
 
     <v-content>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <HttpExample />
       <v-container fluid>
         <v-row
           align="center"
@@ -114,11 +114,11 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import HttpExample from './components/HttpExample.vue';
 
 export default {
   components: {
-    HelloWorld,
+    HttpExample,
   },
   data: () => ({
     drawers: ['Default (no property)', 'Permanent', 'Temporary'],
