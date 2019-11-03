@@ -20,22 +20,21 @@ namespace Titan
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("VueCorsPolicy", builder =>
+                {
+                    builder
+                        .WithOrigins("http://localhost:8080")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             services.AddControllers();
 
             services.AddDbContext<ApplicationDbContext>( options => {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
-            });
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("VueCorsPolicy", builder =>
-                    {
-                    builder
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials()
-                        .WithOrigins("http://localhost:8080");
-                    });
             });
         }
 
@@ -47,20 +46,20 @@ namespace Titan
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("VueCorsPolicy");
+
             dbContext.Database.EnsureCreated();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
-            app.UseCors("VueCorsPolicy");
         }
     }
 }
