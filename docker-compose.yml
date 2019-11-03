@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  titan-lite-webapi:
+    image: ${DOCKER_REGISTRY-}titanlitewebapi
+    build:
+      context: .
+      dockerfile: Titan-Lite-WebApi/Dockerfile
+  titan-lite-client:
+    image: ${DOCKER_REGISTRY-}titanliteclient
+    build:
+      context: titan-lite-client/
+      dockerfile: Dockerfile

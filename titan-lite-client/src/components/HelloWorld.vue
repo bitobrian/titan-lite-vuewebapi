@@ -25,13 +25,9 @@ export default {
 
       this.$http.get(`${uri}`)
         .then((response) => {
-          console.log(response);
           this.testRecords = response.data;
         })
-        .catch((error) => {
-          console.log(error);
-          return error;
-        });
+        .catch(error => error);
     },
   },
 };
